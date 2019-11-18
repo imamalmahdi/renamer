@@ -1,4 +1,5 @@
 from pathlib import Path
+from delete_duplicate import delete_duplicate
 import os
 import time
 
@@ -14,6 +15,7 @@ def get_attribute(dir):
     time_modified.sort(key=lambda time: time[1])
     return time_modified
 
+
 directory = "D:\\Pics\\UwU"
 
 cute_name = "UwU"
@@ -22,8 +24,8 @@ cute_name = "UwU"
 attributes = get_attribute(directory)
 serial = 1
 
+delete_duplicate()
 for name, useless in attributes:
     file_name = f"{directory}\\{cute_name}_{str(serial)}{str(name.suffix)}"
     os.rename(name, file_name)
     serial += 1
-
