@@ -1,7 +1,8 @@
 test*
 build*
 ico/
-__pycache__/
-dist/
-dlls/
+__pycache__/*
+dist/*
+dlls/*
 *.spec
+*.pyc
