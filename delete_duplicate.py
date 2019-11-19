@@ -1,5 +1,5 @@
-import imagehash
-import itertools
+from imagehash import average_hash
+from itertools import combinations
 from pathlib import Path
 from send2trash import send2trash
 from PIL import Image
@@ -7,7 +7,7 @@ from PIL import Image
 
 def get_hash(image):
     the_image = Image.open(image)
-    the_hash = imagehash.average_hash(the_image)
+    the_hash = average_hash(the_image)
 
     return the_hash
 
@@ -23,7 +23,7 @@ def delete_duplicate():
         image_and_hashes.append(temp_tupol)
 
     duplicates = []
-    for a, b in itertools.combinations(image_and_hashes, 2):
+    for a, b in combinations(image_and_hashes, 2):
         if a[1] == b[1]:
             duplicates.append(a[0])
 

@@ -1,7 +1,6 @@
 from pathlib import Path
 from delete_duplicate import delete_duplicate
-import os
-import time
+from os import rename
 
 
 def get_attribute(dir):
@@ -27,5 +26,5 @@ serial = 1
 delete_duplicate()
 for name, useless in attributes:
     file_name = f"{directory}\\{cute_name}_{str(serial)}{str(name.suffix)}"
-    os.rename(name, file_name)
+    rename(name, file_name)
     serial += 1
