@@ -1,1 +1,4 @@
 test*
+build*
+ico/
+__pycache__/
