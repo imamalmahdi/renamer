@@ -25,6 +25,8 @@ serial = 1
 
 delete_duplicate()
 for name, useless in attributes:
+    if name.suffix == ".ini":
+        continue
     file_name = f"{directory}\\{cute_name}_{str(serial)}{str(name.suffix)}"
     rename(name, file_name)
     serial += 1
