@@ -6,3 +6,4 @@ dist/*
 dlls/*
 *.spec
 *.pyc
+*.txt

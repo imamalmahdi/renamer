@@ -3,13 +3,23 @@ from itertools import combinations
 from pathlib import Path
 from send2trash import send2trash
 from PIL import Image
+import json
 
 
 def get_hash(image):
-    the_image = Image.open(image)
-    the_hash = average_hash(the_image)
-
-    return the_hash
+    cache_file = Path(f"{Path(__file__).parent.absolute()}//cached_hash.txt")
+    cached_data = json.loads(cache_file.read_text())
+    image_date = image.stat().st_ctime
+    for data in cached_data:
+        if image_date == data[0]:
+            return data[1]
+    else:
+        the_image = Image.open(image)
+        the_hash = average_hash(the_image)
+        image_info = (image_date, str(the_hash))
+        cached_data.append(image_info)
+        cache_file.write_text(json.dumps(cached_data))
+        return the_hash
 
 
 def delete_duplicate():
