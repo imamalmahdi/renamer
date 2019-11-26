@@ -36,4 +36,4 @@ try:
         title="UwU Renamer", msg="Just took care of your stuff, senpai UwU", icon_path="ico//icon.ico", duration=5)
 except:
     notification.show_toast(
-        title="UwU Renamer", msg="Something went wrong. Save me :(", icon_path="ico//icon.ico", duration=10)
+        title="UwU Renamer", msg="Something went wrong. Save me, senpai :(", icon_path="ico//icon.ico", duration=10)
