@@ -1,7 +1,7 @@
 from pathlib import Path
 from delete_duplicate import delete_duplicate
 from os import rename
-from win10toast import ToastNotifier
+from plyer import notification
 
 
 def get_attribute(dir):
@@ -19,7 +19,6 @@ def get_attribute(dir):
 directory = "D:\\Pics\\UwU"
 
 cute_name = "UwU"
-notification = ToastNotifier()
 
 try:
     attributes = get_attribute(directory)
@@ -32,8 +31,16 @@ try:
         file_name = f"{directory}\\{cute_name}_{str(serial)}{str(name.suffix)}"
         rename(name, file_name)
         serial += 1
-    notification.show_toast(
-        title="UwU Renamer", msg="Just took care of your stuff, senpai UwU", icon_path="ico//icon.ico", duration=5)
+    notification.notify(
+        title="Just took care of your stuff",
+        message="Hope you are happy, senpai UwU",
+        app_name="UwU Renamer",
+        app_icon="ico//icon.ico",
+        timeout=5)
 except:
-    notification.show_toast(
-        title="UwU Renamer", msg="Something went wrong. Save me, senpai :(", icon_path="ico//icon.ico", duration=10)
+    notification.notify(
+        title="Something went wrong!",
+        message="Save me, senpai :(",
+        app_name="UwU Renamer",
+        app_icon="ico//icon.ico",
+        timeout=10)
