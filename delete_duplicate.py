@@ -29,11 +29,14 @@ def delete_duplicate():
     image_and_hashes = []
 
     for image in images:
-        try:
-            temp_tupol = [image, str(get_hash(image))]
-            image_and_hashes.append(temp_tupol)
-        except OSError:
-            pass
+        if image.suffix == "mp4":
+            continue
+        else:
+            try:
+                temp_tupol = [image, str(get_hash(image))]
+                image_and_hashes.append(temp_tupol)
+            except OSError:
+                pass
 
     duplicates = []
     for a, b in combinations(image_and_hashes, 2):
