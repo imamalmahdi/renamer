@@ -37,10 +37,10 @@ try:
         app_name="UwU Renamer",
         app_icon="ico//icon.ico",
         timeout=5)
-except:
+except Exception as error:
     notification.notify(
-        title="Something went wrong!",
-        message="Save me, senpai :(",
+        title="Something went wrong, senpai :(",
+        message=f"Exception: {error}",
         app_name="UwU Renamer",
         app_icon="ico//icon.ico",
         timeout=10)
