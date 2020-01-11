@@ -20,16 +20,15 @@ directory = "D:\\Pics\\UwU"
 
 
 try:
-    attributes = get_attribute(directory)
     serial = 1
     attempt = 1
     delete_duplicate()
 
     cute_name = "bak"
     while attempt <= 2:
+        attributes = get_attribute(directory)
         if attempt == 2:
             serial = 1
-            attributes = get_attribute(directory)
             cute_name = "UwU"
         for name, useless in attributes:
             if name.suffix == ".ini":
