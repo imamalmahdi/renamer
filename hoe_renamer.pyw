@@ -18,19 +18,26 @@ def get_attribute(dir):
 
 directory = "D:\\Pics\\UwU"
 
-cute_name = "UwU"
 
 try:
     attributes = get_attribute(directory)
     serial = 1
-
+    attempt = 1
     delete_duplicate()
-    for name, useless in attributes:
-        if name.suffix == ".ini":
-            continue
-        file_name = f"{directory}\\{cute_name}_{str(serial)}{str(name.suffix)}"
-        rename(name, file_name)
-        serial += 1
+
+    cute_name = "bak"
+    while attempt <= 2:
+        if attempt == 2:
+            serial = 1
+            attributes = get_attribute(directory)
+            cute_name = "UwU"
+        for name, useless in attributes:
+            if name.suffix == ".ini":
+                continue
+            file_name = f"{directory}\\{cute_name}_{str(serial)}{str(name.suffix)}"
+            rename(name, file_name)
+            serial += 1
+        attempt += 1
     notification.notify(
         title="Just took care of your stuff",
         message="Hope you are happy, senpai UwU",
