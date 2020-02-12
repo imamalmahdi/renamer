@@ -9,11 +9,19 @@ def get_attribute(dir):
     time_modified = []
     for path in current_dir.iterdir():
         info = path.stat()
-        info_stat = (path, info.st_ctime)
+        info_stat = [path, info.st_ctime]
         time_modified.append(info_stat)
 
     time_modified.sort(key=lambda time: time[1])
     return time_modified
+
+
+def update(file):
+    bak_name = f"{directory}\\bak_{str(serial)}{str(name.suffix)}"
+    rename(file, bak_name)
+    for index, element in enumerate(attributes):
+        if element[0] == Path(file):
+            attributes[index][0] = Path(bak_name)
 
 
 directory = "D:\\Pics\\UwU"
@@ -27,7 +35,10 @@ try:
     for name, useless in attributes:
         if name.suffix == ".ini":
             continue
-        file_name = f"{directory}\\{cute_name}_{str(serial)}{str(name.suffix)}"
+        pic_name = f"{cute_name}_{str(serial)}"
+        file_name = f"{directory}\\{pic_name}{str(name.suffix)}"
+        if name.stem != pic_name and Path(file_name).exists():
+            update(file_name)
         rename(name, file_name)
         serial += 1
     notification.notify(
@@ -36,6 +47,7 @@ try:
         app_name="UwU Renamer",
         app_icon="ico//icon.ico",
         timeout=5)
+
 except Exception as error:
     notification.notify(
         title="Something went wrong, senpai :(",
