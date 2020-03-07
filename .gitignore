@@ -7,3 +7,4 @@ dlls/*
 *.spec
 *.pyc
 *.txt
+.vscode/*
