@@ -29,7 +29,7 @@ def delete_duplicate():
     image_and_hashes = []
 
     for image in images:
-        if image.suffix == "mp4":
+        if image.suffix in [".mp4", ".ini"] or image.is_dir():
             continue
         else:
             try:

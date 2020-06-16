@@ -1,6 +1,6 @@
 from pathlib import Path
 from delete_duplicate import delete_duplicate
-from os import rename
+from os import rename, walk
 from plyer import notification
 
 
@@ -16,7 +16,7 @@ def get_attribute(dir):
     return time_modified
 
 
-def update(file):
+def update(file, directory, attributes, serial, name):
     bak_name = f"{directory}\\bak_{str(serial)}{str(name.suffix)}"
     rename(file, bak_name)
     for index, element in enumerate(attributes):
@@ -24,23 +24,28 @@ def update(file):
             attributes[index][0] = Path(bak_name)
 
 
-directory = "D:\\Pics\\UwU"
-cute_name = "UwU"
-
-try:
+def rename_dir(directory):
+    cute_name = "_".join(directory.split("\\")[2:])
     serial = 1
     delete_duplicate()
 
     attributes = get_attribute(directory)
-    for name, useless in attributes:
-        if name.suffix == ".ini":
+    for name in attributes:
+        actual_file_name = name[0]
+        if actual_file_name.suffix == ".ini" or actual_file_name.is_dir():
             continue
         pic_name = f"{cute_name}_{str(serial)}"
-        file_name = f"{directory}\\{pic_name}{str(name.suffix)}"
-        if name.stem != pic_name and Path(file_name).exists():
-            update(file_name)
-        rename(name, file_name)
+        file_name = f"{directory}\\{pic_name}{str(actual_file_name.suffix)}"
+        if actual_file_name.stem != pic_name and Path(file_name).exists():
+            update(file_name, directory, attributes, serial, actual_file_name)
+        rename(actual_file_name, file_name)
         serial += 1
+
+try:
+    working_dir = "D:\\Pics\\UwU"
+    for itered_dir in walk(working_dir):
+        rename_dir(itered_dir[0])
+    
     notification.notify(
         title="Just took care of your stuff",
         message="Hope you are happy, senpai UwU",
