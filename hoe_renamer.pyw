@@ -42,9 +42,10 @@ def rename_dir(directory):
         serial += 1
 
 try:
-    working_dir = "D:\\Pics\\UwU"
-    for itered_dir in walk(working_dir):
-        rename_dir(itered_dir[0])
+    working_dirs = ["D:\\Pics\\UwU", "D:\\Pics\\Wally", "D:\\Pics\\Pro"]
+    for working_dir in working_dirs:
+        for itered_dir in walk(working_dir):
+            rename_dir(itered_dir[0])
     
     notification.notify(
         title="Just took care of your stuff",
