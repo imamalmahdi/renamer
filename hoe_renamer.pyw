@@ -28,11 +28,11 @@ def rename_dir(directory):
     cute_name = "_".join(directory.split("\\")[2:])
     serial = 1
     delete_duplicate()
-
+    exceptions = ['.ini', '.db']
     attributes = get_attribute(directory)
     for name in attributes:
         actual_file_name = name[0]
-        if actual_file_name.suffix == ".ini" or actual_file_name.is_dir():
+        if actual_file_name.suffix in exceptions or actual_file_name.is_dir():
             continue
         pic_name = f"{cute_name}_{str(serial)}"
         file_name = f"{directory}\\{pic_name}{str(actual_file_name.suffix)}"
@@ -42,7 +42,7 @@ def rename_dir(directory):
         serial += 1
 
 try:
-    working_dirs = ["D:\\Pics\\UwU", "D:\\Pics\\Wally", "D:\\Pics\\Pro"]
+    working_dirs = ["D:\\Pics\\UwU", "D:\\Pics\\Wallpapers", "D:\\Pics\\Pro"]
     for working_dir in working_dirs:
         for itered_dir in walk(working_dir):
             rename_dir(itered_dir[0])
