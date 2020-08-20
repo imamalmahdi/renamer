@@ -26,12 +26,12 @@ def update(file, directory, attributes, serial, name):
 def rename_dir(directory):
     cute_name = "_".join(directory.split("\\")[2:])
     serial = 1
-    delete_duplicate()
+    delete_duplicate(directory)
 
     attributes = get_attribute(directory)
     for name in attributes:
         actual_file_name = name[0]
-        if actual_file_name.suffix == ".ini" or actual_file_name.is_dir():
+        if actual_file_name.suffix == ['.ini', '.db'] or actual_file_name.is_dir():
             continue
         pic_name = f"{cute_name}_{str(serial)}"
         file_name = f"{directory}\\{pic_name}{str(actual_file_name.suffix)}"

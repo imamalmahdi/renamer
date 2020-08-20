@@ -27,7 +27,7 @@ def update(file, directory, attributes, serial, name):
 def rename_dir(directory):
     cute_name = "_".join(directory.split("\\")[2:])
     serial = 1
-    delete_duplicate()
+    delete_duplicate(directory)
     exceptions = ['.ini', '.db']
     attributes = get_attribute(directory)
     for name in attributes:

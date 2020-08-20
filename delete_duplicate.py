@@ -1,4 +1,4 @@
-from imagehash import average_hash
+from imagehash import phash
 from itertools import combinations
 from pathlib import Path
 from send2trash import send2trash
@@ -8,22 +8,32 @@ import json
 
 def get_hash(image):
     cache_file = Path(f"{Path(__file__).parent.absolute()}//cached_hash.txt")
-    cached_data = json.loads(cache_file.read_text())
+    if not cache_file.exists():
+        with open(cache_file, "w"): pass
+        cached_data = []
+    else:
+        try: 
+            cached_data = json.loads(cache_file.read_text())
+        except:
+            cached_data = []
+    
     image_date = image.stat().st_ctime
+    image_size = image.stat().st_size
     for data in cached_data:
-        if image_date == data[0]:
+        if image_date == data[0][0] and image_size == data[0][1]:
             return data[1]
     else:
         the_image = Image.open(image)
-        the_hash = average_hash(the_image)
-        image_info = (image_date, str(the_hash))
+        the_hash = phash(the_image)
+        print("Hashing", image)
+        image_info = ((image_date, image_size), str(the_hash), image.name)
         cached_data.append(image_info)
-        cache_file.write_text(json.dumps(cached_data))
+        cache_file.write_text(json.dumps(cached_data, indent=4))
         return the_hash
 
 
-def delete_duplicate():
-    directory = Path(r"D:\Pics\UwU")
+def delete_duplicate(path):
+    directory = Path(path)
     images = directory.iterdir()
 
     image_and_hashes = []
@@ -42,6 +52,7 @@ def delete_duplicate():
     for a, b in combinations(image_and_hashes, 2):
         if a[1] == b[1]:
             duplicates.append(a[0])
+            print(a[0], "matched", b[0])
 
     if duplicates != []:
         for duplicate in duplicates:
