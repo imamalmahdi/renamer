@@ -1,10 +1,6 @@
 test*
 build*
-ico/
-__pycache__*
-dist/*
-dlls/*
 *.spec
 *.pyc
 *.txt
-.vscode*
+*/
