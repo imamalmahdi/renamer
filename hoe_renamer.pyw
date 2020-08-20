@@ -111,11 +111,11 @@ try:
     for working_dir in working_dirs:
         for itered_dir in walk(working_dir):
             rename_dir(itered_dir[0])
-    logging.info(f"Renamed {renamed} file(s)")
+    logging.info(f"Processed {renamed} file(s)")
 
     notification.notify(
         title="Just took care of your stuff",
-        message=f"Renamed {renamed} file(s), senpai UwU",
+        message=f"Processed {renamed} file(s), senpai UwU",
         app_name="UwU Renamer",
         app_icon="ico//icon.ico",
         timeout=5)
