@@ -44,8 +44,6 @@ class Directory:
         if duplicates != []:
             for duplicate in duplicates:
                 send2trash(str(duplicate).encode())
-        else:
-            pass
 
     def __get_attributes(self):
         self.__delete_duplicate()
@@ -70,7 +68,7 @@ class Directory:
         logging.info(f"Renamed {duplicate_file} to {bak_name} as backup")
         for token in self.attributes:
             if self.attributes[token] == Path(duplicate_file):
-                self.attributes[token] == Path(bak_name)
+                self.attributes[token] = Path(bak_name)
                 break
 
     def rename_dir(self):
