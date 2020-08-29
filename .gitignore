@@ -2,6 +2,6 @@ test*
 build*
 *.spec
 *.pyc
-*.txt
+cached*
 */
 h*
