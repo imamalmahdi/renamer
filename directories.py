@@ -79,6 +79,7 @@ class Directory:
             file_name = f"{self.path_str}\\{pic_name}{str(actual_file_name.suffix)}"
             if actual_file_name.stem != pic_name and Path(file_name).exists():
                 self.__update(file_name, serial, actual_file_name)
-            rename(actual_file_name, file_name)
-            logging.info(f"Renamed {actual_file_name} to {file_name}")
+            if str(actual_file_name) != file_name:
+                rename(actual_file_name, file_name)
+                logging.info(f"Renamed {actual_file_name} to {file_name}")
             serial += 1
