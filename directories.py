@@ -18,12 +18,11 @@ class Directory:
     def __init__(self, dir):
         self.path = Path(dir)
         self.path_str = dir
-        self.name = "_".join(dir.split("\\")[2:])
+        self.name = dir.split("/")[-1]
         self.attributes = self.__get_attributes()
 
     def __delete_duplicate(self):
         images = self.path.iterdir()
-
         image_and_hashes = []
 
         for image in images:
@@ -52,7 +51,7 @@ class Directory:
             if file_path.suffix in EXCLUDE_LIST or file_path.is_dir():
                 continue
             info = file_path.stat()
-            time_created = info.st_ctime
+            time_created = info.st_mtime
             if time_created in data.keys():
                 time_created += 0.000001
             data[time_created] = file_path
@@ -60,7 +59,7 @@ class Directory:
     
     def __update(self, duplicate_file, serial, name):
         while True:
-            bak_name = f"{self.path_str}\\bak_{str(serial)}{str(name.suffix)}"
+            bak_name = f"{self.path_str}/bak_{str(serial)}{str(name.suffix)}"
             if Path(bak_name).exists():
                 serial -= 1
             else: break
@@ -76,7 +75,7 @@ class Directory:
         for token in self.attributes:
             actual_file_name = self.attributes[token]
             pic_name = f"{self.name}_{str(serial)}"
-            file_name = f"{self.path_str}\\{pic_name}{str(actual_file_name.suffix)}"
+            file_name = f"{self.path_str}/{pic_name}{str(actual_file_name.suffix)}"
             if actual_file_name.stem != pic_name and Path(file_name).exists():
                 self.__update(file_name, serial, actual_file_name)
             if str(actual_file_name) != file_name:

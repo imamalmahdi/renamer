@@ -20,7 +20,7 @@ class ImageFile:
             except:
                 cached_data = []
         
-        image_date = self.path.stat().st_ctime
+        image_date = self.path.stat().st_mtime
         image_size = self.path.stat().st_size
         for data in cached_data:
             if image_date == data[0][0] and image_size == data[0][1]:
